@@ -1,38 +1,36 @@
 // port of Daniel Shiffman's Pong coding challenge
 // by madacoo
 
-let leftscore = 0;
-let rightscore = 0;
+let players = {
+    0: new Paddle({ x: 100, y: 100 }, { x: 200, y: 200 }),
+    1: new Paddle({ x: 200, y: 200 }, { x: 300, y: 300 }),
+    2: new Paddle({ x: 50, y: 500 }, { x: 50, y: 800 }),
+}
+
+console.log(players[0]);
+console.log(players[1]);
 
 function setup() {
-    createCanvas(600, 400);
-    puck = new Puck();
-    left = new Paddle(true);
-    right = new Paddle(false);
+    createCanvas(800, 800);
+    //puck = new Puck();
 }
 
 function draw() {
     background(0);
-    
-    puck.checkPaddleRight(right);
-    puck.checkPaddleLeft(left);
 
-    left.show();
-    right.show();
-    left.update();
-    right.update();
+    for (let id in players) {
+        players[id].show();
+        players[id].update();
+    }
     
-    puck.update();
-    puck.edges();
-    puck.show();
+    //puck.update();
+    //puck.edges();
+    //puck.show();
     
     fill(255);
-    textSize(32);
-    text(leftscore, 32, 40);
-    text(rightscore, width-64, 40);
 }
 
-
+/*
 function keyReleased() {
     left.move(0);
     right.move(0);
@@ -51,3 +49,4 @@ function keyPressed() {
         right.move(10);
     }
 }
+*/

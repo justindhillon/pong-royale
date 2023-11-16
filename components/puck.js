@@ -62,12 +62,10 @@ class Puck {
         }
         
         if (this.x - this.r > width) {
-            leftscore++;
             this.reset();
         }
         
         if (this.x + this.r < 0) {
-            rightscore++;
             this.reset();
         }
     }
