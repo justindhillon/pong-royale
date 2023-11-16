@@ -39,7 +39,6 @@ function keyReleased() {
 }
 
 function keyPressed() {
-    console.log(key);
     if (key == 'A') {
         left.move(-10);
     } else if (key == 'Z') {

@@ -5,7 +5,6 @@ class Puck {
         this.xspeed = 0;
         this.yspeed = 0;
         this.r = 12;
-        
         this.reset();
     }
     
@@ -13,7 +12,7 @@ class Puck {
         if (this.y - this.r < p.y + p.h/2 &&
             this.y + this.r > p.y - p.h/2 &&
             this.x - this.r < p.x + p.w/2) {
-                
+
             if (this.x > p.x) {
                 let diff = this.y - (p.y - p.h/2);
                 let rad = radians(45);
@@ -22,9 +21,9 @@ class Puck {
                 this.yspeed = 5 * sin(angle);
                 this.x = p.x + p.w/2 + this.r;
             }
-            
         }
     }
+
     checkPaddleRight(p) {
         if (this.y - this.r < p.y + p.h/2 &&
             this.y + this.r > p.y - p.h/2 &&
@@ -72,7 +71,7 @@ class Puck {
             this.reset();
         }
     }
-    
+ 
     show() {
         fill(255);
         ellipse(this.x, this.y, this.r*2);
