@@ -7,10 +7,8 @@ let players = {
     2: new Paddle({ x: 50, y: 500 }, { x: 50, y: 800 }),
 }
 
-console.log(players[0]);
-console.log(players[1]);
-
 function setup() {
+    console.log(calculateVertex(10, 4));
     createCanvas(800, 800);
     //puck = new Puck();
 }
