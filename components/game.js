@@ -3,8 +3,6 @@ let players = {}
 function setup() {
     let vertices = calculateVertices(10, 400, 400, 400);
 
-    console.log(vertices);
-
     for (let i in vertices) {
         let nextI = parseInt(i) + 1;
         if (Object.keys(vertices).length <= nextI) {
@@ -12,8 +10,6 @@ function setup() {
         }
         players[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y });
     }
-
-    console.log(players);
 
     createCanvas(800, 800);
     //puck = new Puck();
