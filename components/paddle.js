@@ -22,7 +22,7 @@ class Paddle {
         this.pos = constrain(this.pos, 0, 1);
 
         this.x = this.vertex1.x + this.xDistance * this.pos;
-        this.y = this.vertex1.x + this.yDistance * this.pos;
+        this.y = this.vertex1.y + this.yDistance * this.pos;
     }
     
     left() {

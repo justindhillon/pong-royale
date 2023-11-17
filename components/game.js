@@ -1,14 +1,21 @@
 // port of Daniel Shiffman's Pong coding challenge
 // by madacoo
 
-let players = {
-    0: new Paddle({ x: 100, y: 100 }, { x: 200, y: 200 }),
-    1: new Paddle({ x: 200, y: 200 }, { x: 300, y: 300 }),
-    2: new Paddle({ x: 50, y: 500 }, { x: 50, y: 800 }),
-}
+let players = {}
 
 function setup() {
-    console.log(calculateVertex(10, 4));
+    const vertices = calculateVertex(400, 4);
+
+    for (let i in vertices) {
+        let nextI = parseInt(i) + 1;
+        if (Object.keys(vertices).length <= nextI) {
+            nextI = 0;
+        }
+        players[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y });
+    }
+
+    console.log(players);
+
     createCanvas(800, 800);
     //puck = new Puck();
 }
