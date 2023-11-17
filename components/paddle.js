@@ -1,7 +1,9 @@
 class Paddle {
-    constructor(vertex1, vertex2) {
+    constructor(vertex1, vertex2, rotation, color) {
         this.vertex1 = vertex1;
         this.vertex2 = vertex2;
+        this.rotation = rotation;
+        this.color = color;
 
         this.xDistance = this.vertex2.x - this.vertex1.x;
         this.yDistance = this.vertex2.y - this.vertex1.y;
@@ -38,8 +40,13 @@ class Paddle {
     }
     
     show() {
-        fill(255);
+        push();
+        translate(this.x, this.y);
+        angleMode(DEGREES);
+        rotate(this.rotation);
+        fill(this.color);
         rectMode(CENTER);
-        rect(this.x, this.y, this.width, this.thickness);
+        rect(0, 0, this.width, this.thickness);
+        pop();
     }
 }

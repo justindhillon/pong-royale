@@ -1,7 +1,3 @@
-// Don't touch this code
-// It is a blessing from the lord
-// Nobody knows how it works, it just works
-
 function calculateVertices(n, radius, centerX, centerY) {
     let vertices = [];
     let initialAngleOffset = -90; // Aligns the first vertex at the bottom.
@@ -19,8 +15,11 @@ function calculateVertices(n, radius, centerX, centerY) {
         let x = centerX + radius * Math.cos(angle);
         let y = centerY + radius * Math.sin(angle);
 
+        let rotation = (180 - ((n - 2) * 180) / n) * i;
+
         // Adding the vertex to the list
-        vertices.push({ x: x, y: y });
+        vertices.push({ x: x, y: y, rotation: rotation });
     }
+
     return vertices;
 }

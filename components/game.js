@@ -1,14 +1,35 @@
+const colors = [
+    "#c61111",
+    "#132ed2", 
+    "#11802d", 
+    "#ee54bb", 
+    "#f07d0d",
+    "#f6f657",
+    "#d6e0f0",
+    "#6b2fbc",
+    "#71491e",
+    "#38e2dd",
+    "#50f039",
+    "#50f039",
+    "#50f039",
+    "#fffebe",
+    "#708496",
+    "#928776",
+    "#ec7578",
+]
+
 let players = {}
 
 function setup() {
-    let vertices = calculateVertices(10, 400, 400, 400);
+    let vertices = calculateVertices(5, 400, 400, 400);
 
     for (let i in vertices) {
         let nextI = parseInt(i) + 1;
         if (Object.keys(vertices).length <= nextI) {
             nextI = 0;
         }
-        players[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y });
+        let color = colors[i];
+        players[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, color);
     }
 
     createCanvas(800, 800);
