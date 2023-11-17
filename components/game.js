@@ -21,7 +21,7 @@ const colors = [
 let players = {}
 
 function setup() {
-    let vertices = calculateVertices(5, 400, 400, 400);
+    let vertices = calculateVertices(20, 400, 400, 400);
 
     for (let i in vertices) {
         let nextI = parseInt(i) + 1;

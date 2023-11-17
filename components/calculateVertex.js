@@ -1,3 +1,26 @@
+function rotatePoint(x, y, rotation, angle, centerX, centerY) {
+    // Translate point to origin
+    x -= centerX;
+    y -= centerY;
+
+    // Convert angle to radians
+    let radians = angle * Math.PI / 180;
+
+    // Apply rotation
+    let xPrime = x * Math.cos(radians) - y * Math.sin(radians);
+    let yPrime = x * Math.sin(radians) + y * Math.cos(radians);
+
+    // Translate point back
+    xPrime += centerX;
+    yPrime += centerY;
+
+    return { x: xPrime, y: yPrime, rotation: rotation };
+}
+
+function rotatePolygon(vertices, angle, centerX, centerY) {
+    return vertices.map(vertex => rotatePoint(vertex.x, vertex.y, vertex.rotation, angle, centerX, centerY));
+}
+
 function calculateVertices(n, radius, centerX, centerY) {
     let vertices = [];
     let initialAngleOffset = -90; // Aligns the first vertex at the bottom.
@@ -20,6 +43,7 @@ function calculateVertices(n, radius, centerX, centerY) {
         // Adding the vertex to the list
         vertices.push({ x: x, y: y, rotation: rotation });
     }
-
+    const angle = 360/n * (Math.round(n/2 - 1));
+    vertices = rotatePolygon(vertices, angle, centerX, centerY);
     return vertices;
 }
