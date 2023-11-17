@@ -1,10 +1,9 @@
-// port of Daniel Shiffman's Pong coding challenge
-// by madacoo
-
 let players = {}
 
 function setup() {
-    const vertices = calculateVertex(400, 4);
+    let vertices = calculateVertices(10, 400, 400, 400);
+
+    console.log(vertices);
 
     for (let i in vertices) {
         let nextI = parseInt(i) + 1;
