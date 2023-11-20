@@ -39,3 +39,4 @@ pong-royal uses the AGPL-3.0 license.
 
 ## Credits
 - [Basic Pong Game](https://www.youtube.com/watch?v=IIrC5Qcb2G4)
+- [Multiplayer Game Tutorial](https://www.youtube.com/watch?v=HXquxWtE5vA)

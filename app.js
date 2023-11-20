@@ -14,10 +14,21 @@ app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
 });
 
+let players = {}
+let order = 0;
+
 app.use(express.static(__dirname + "/"));
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  players[socket.id] = {
+    id: order,
+    pos: 1/2,
+  };
+
+  io.emit('updatePlayers', players);
+
+  order++;
+  console.log(players);
 });
 
 server.listen(3000, () => {

@@ -18,10 +18,10 @@ const colors = [
     "#ec7578",
 ]
 
-let players = {}
+let paddles = {}
 
 function setup() {
-    let vertices = calculateVertices(20, 400, 400, 400);
+    let vertices = calculateVertices(16, 400, 400, 400);
 
     for (let i in vertices) {
         let nextI = parseInt(i) + 1;
@@ -29,7 +29,7 @@ function setup() {
             nextI = 0;
         }
         let color = colors[i];
-        players[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, color);
+        paddles[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, color);
     }
 
     createCanvas(800, 800);
@@ -39,9 +39,9 @@ function setup() {
 function draw() {
     background(0);
 
-    for (let id in players) {
-        players[id].show();
-        players[id].update();
+    for (let id in paddles) {
+        paddles[id].show();
+        paddles[id].update();
     }
     
     //puck.update();
