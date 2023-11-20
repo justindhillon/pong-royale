@@ -21,6 +21,8 @@ app.use(express.static(__dirname + "/"));
 io.on('connection', (socket) => {
   players[socket.id] = {
     pos: 1/2,
+    moveLeft: false,
+    moveRight: false,
   };
 
   io.emit('updatePlayers', players);
@@ -33,16 +35,40 @@ io.on('connection', (socket) => {
   socket.on('keydown', (direction) => {
     switch (direction) {
       case 'left':
-        players[socket.id].pos -= 1/60;
+        players[socket.id].moveLeft = true;
         break
       case 'right':
-        players[socket.id].pos += 1/60;
+        players[socket.id].moveRight = true;
+        break
+    }
+  })
+
+  socket.on('keyup', (direction) => {
+    switch (direction) {
+      case 'left':
+        players[socket.id].moveLeft = false;
+        break
+      case 'right':
+        players[socket.id].moveRight = false;
         break
     }
   })
 });
 
 setInterval(() => {
+  for (const id in players) {
+    if (players[id].moveLeft) {
+      if (players[id].pos <= 27/32) {
+        players[id].pos += 1/60;
+      }
+    }
+    if (players[id].moveRight) {
+      if (5/32 <= players[id].pos) {
+        players[id].pos -= 1/60;
+      }
+    }
+  }
+
   io.emit('updatePlayers', players);
 }, 15)
 

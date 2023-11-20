@@ -33,3 +33,51 @@ window.addEventListener('keydown', (event) => {
             break
     }
 })
+
+// Documentation:
+// https://editor.p5js.org/mrhaikuswan/sketches/hzMgNbSu_
+function keyPressed() {
+    switch (key) {
+        case 'a':
+            socket.emit('keydown', 'left');
+            break
+        case 'A':
+            socket.emit('keydown', 'left');
+            break
+        case 'ArrowLeft':
+            socket.emit('keydown', 'left');
+            break
+        case 'd':
+            socket.emit('keydown', 'right');
+            break
+        case 'D':
+            socket.emit('keydown', 'right');
+            break
+        case 'ArrowRight':
+            socket.emit('keydown', 'right');
+            break
+    }
+}
+  
+  function keyReleased() {
+    switch (key) {
+        case 'a':
+            socket.emit('keyup', 'left');
+            break
+        case 'A':
+            socket.emit('keyup', 'left');
+            break
+        case 'ArrowLeft':
+            socket.emit('keyup', 'left');
+            break
+        case 'd':
+            socket.emit('keyup', 'right');
+            break
+        case 'D':
+            socket.emit('keyup', 'right');
+            break
+        case 'ArrowRight':
+            socket.emit('keyup', 'right');
+            break
+    }
+}
