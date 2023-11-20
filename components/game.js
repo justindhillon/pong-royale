@@ -6,6 +6,12 @@ function setup() {
 function draw() {
     background(0);
 
+    angleMode(DEGREES);
+    translate(width / 2, height / 2);
+    const angle = -360 / Object.keys(paddles).length;
+    rotate(angle * (paddleNumber));
+    translate(-width / 2, -height / 2);
+
     for (let id in paddles) {
         paddles[id].show();
     }
