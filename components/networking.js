@@ -15,10 +15,4 @@ socket.on('updatePlayers', (players) => {
         paddles[id] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, players[id].pos, vertices[i].rotation, players[id].number);
         i++;
     }
-
-    for (const id in paddles) {
-        if (!players[id]) {
-            delete players[id];
-        }
-    }
 })
