@@ -1,6 +1,5 @@
 function setup() {
     createCanvas(800, 800);
-    //puck = new Puck();
 }
 
 function draw() {
@@ -15,10 +14,10 @@ function draw() {
     for (let id in paddles) {
         paddles[id].show();
     }
-    
-    //puck.update();
-    //puck.edges();
-    //puck.show();
+
+    for (let id in pucks) {
+        pucks[id].show();
+    }
     
     fill(255);
 }

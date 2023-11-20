@@ -17,6 +17,13 @@ app.get('/', (req, res) => {
 let players = {}
 let playerNumber = 0;
 
+let balls = {
+  0: {
+    x: 400,
+    y: 400,
+  }
+}
+
 app.use(express.static(__dirname + "/"));
 
 io.on('connection', (socket) => {
@@ -29,11 +36,11 @@ io.on('connection', (socket) => {
 
   playerNumber++;
 
-  io.emit('updatePlayers', players);
+  io.emit('update', players, balls);
 
   socket.on('disconnect', (reason) => {
     delete players[socket.id];
-    io.emit('updatePlayers', players);
+    io.emit('update', players, balls);
   });
 
   socket.on('keydown', (direction) => {
@@ -73,7 +80,7 @@ setInterval(() => {
     }
   }
 
-  io.emit('updatePlayers', players);
+  io.emit('update', players, balls);
 }, 15)
 
 server.listen(3000, () => {

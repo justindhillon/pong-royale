@@ -3,7 +3,9 @@ const socket = io();
 let paddles = {};
 let paddleNumber = 0;
 
-socket.on('updatePlayers', (players) => {
+let pucks = {};
+
+socket.on('update', (players, balls) => {
     paddles = {};
     let vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
 
@@ -18,5 +20,9 @@ socket.on('updatePlayers', (players) => {
             paddleNumber = i;
         }
         i++;
+    }
+
+    for (const id in balls) {
+        pucks[id] = new Puck(balls[id].x, balls[id].y);
     }
 })
