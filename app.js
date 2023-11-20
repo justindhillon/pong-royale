@@ -25,6 +25,12 @@ io.on('connection', (socket) => {
   };
 
   io.emit('updatePlayers', players);
+
+  socket.on('disconnect', (reason) => {
+    delete players[socket.id];
+    io.emit('updatePlayers', players);
+  });
+
   console.log(players);
 });
 
