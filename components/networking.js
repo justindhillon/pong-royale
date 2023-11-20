@@ -1,16 +1,24 @@
 const socket = io();
 
-let paddles = {}
+let paddles = {};
 
 socket.on('updatePlayers', (players) => {
-    console.log(players);
+    paddles = {};
     let vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
 
-    for (let i in vertices) {
+    let i = 0
+    for (const id in players) {
         let nextI = parseInt(i) + 1;
         if (Object.keys(vertices).length <= nextI) {
             nextI = 0;
         }
-        paddles[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, i);
+        paddles[id] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, i);
+        i++;
+    }
+
+    for (const id in paddles) {
+        if (!players[id]) {
+            delete players[id];
+        }
     }
 })
