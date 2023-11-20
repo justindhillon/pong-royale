@@ -15,19 +15,16 @@ app.get('/', (req, res) => {
 });
 
 let players = {}
-let order = 0;
 
 app.use(express.static(__dirname + "/"));
 
 io.on('connection', (socket) => {
   players[socket.id] = {
-    id: order,
-    pos: 1/2,
+    x: 0,
+    y: 0,
   };
 
   io.emit('updatePlayers', players);
-
-  order++;
   console.log(players);
 });
 

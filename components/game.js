@@ -1,16 +1,4 @@
-let paddles = {}
-
 function setup() {
-    let vertices = calculateVertices(16, 400, 400, 400);
-
-    for (let i in vertices) {
-        let nextI = parseInt(i) + 1;
-        if (Object.keys(vertices).length <= nextI) {
-            nextI = 0;
-        }
-        paddles[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, i);
-    }
-
     createCanvas(800, 800);
     //puck = new Puck();
 }
