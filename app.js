@@ -20,8 +20,7 @@ app.use(express.static(__dirname + "/"));
 
 io.on('connection', (socket) => {
   players[socket.id] = {
-    x: 0,
-    y: 0,
+    pos: 1/2,
   };
 
   io.emit('updatePlayers', players);

@@ -18,23 +18,19 @@ function draw() {
     fill(255);
 }
 
-/*
-function keyReleased() {
-    left.move(0);
-    right.move(0);
-}
-
-function keyPressed() {
-    if (key == 'A') {
-        left.move(-10);
-    } else if (key == 'Z') {
-        left.move(10);
+window.addEventListener('keydown', (event) => {
+    switch (event.code) {
+        case 'KeyA':
+            console.log('left');
+            break
+        case 'ArrowLeft':
+            console.log('left');
+            break
+        case 'KeyD':
+            console.log('right');
+            break
+        case 'ArrowRight':
+            console.log('right');
+            break
     }
-
-    if (key == 'J') {
-        right.move(-10);
-    } else if (key == 'M') {
-        right.move(10);
-    }
-}
-*/
+})
