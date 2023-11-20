@@ -8,7 +8,6 @@ function draw() {
 
     for (let id in paddles) {
         paddles[id].show();
-        paddles[id].update();
     }
     
     //puck.update();
@@ -21,16 +20,16 @@ function draw() {
 window.addEventListener('keydown', (event) => {
     switch (event.code) {
         case 'KeyA':
-            console.log('left');
+            socket.emit('keydown', 'left');
             break
         case 'ArrowLeft':
-            console.log('left');
+            socket.emit('keydown', 'left');
             break
         case 'KeyD':
-            console.log('right');
+            socket.emit('keydown', 'right');
             break
         case 'ArrowRight':
-            console.log('right');
+            socket.emit('keydown', 'right');
             break
     }
 })

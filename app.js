@@ -30,8 +30,21 @@ io.on('connection', (socket) => {
     io.emit('updatePlayers', players);
   });
 
-  console.log(players);
+  socket.on('keydown', (direction) => {
+    switch (direction) {
+      case 'left':
+        players[socket.id].pos -= 1/60;
+        break
+      case 'right':
+        players[socket.id].pos += 1/60;
+        break
+    }
+  })
 });
+
+setInterval(() => {
+  io.emit('updatePlayers', players);
+}, 15)
 
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
