@@ -21,6 +21,8 @@ let balls = {
   0: {
     x: 400,
     y: 400,
+    direction: Math.random() * 360,
+    speed: 4,
   }
 }
 
@@ -78,6 +80,15 @@ setInterval(() => {
         players[id].pos -= 1/60;
       }
     }
+  }
+
+  for (const id in balls) {
+    const direction = balls[id].direction * (180 / Math.PI);
+    const moveX = Math.cos(direction) * balls[id].speed;
+    const moveY = Math.sin(direction) * balls[id].speed;
+
+    balls[id].x += moveX;
+    balls[id].y += moveY;
   }
 
   io.emit('update', players, balls);
