@@ -12,7 +12,7 @@ socket.on('updatePlayers', (players) => {
         if (Object.keys(vertices).length <= nextI) {
             nextI = 0;
         }
-        paddles[id] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, players[id].pos, vertices[i].rotation, i);
+        paddles[id] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, players[id].pos, vertices[i].rotation, players[id].number);
         i++;
     }
 

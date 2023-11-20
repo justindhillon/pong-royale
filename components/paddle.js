@@ -23,7 +23,7 @@ class Paddle {
         this.vertex1 = vertex1;
         this.vertex2 = vertex2;
         this.rotation = rotation;
-        this.color = color;
+        this.color = color % 17;
 
         this.xDistance = this.vertex2.x - this.vertex1.x;
         this.yDistance = this.vertex2.y - this.vertex1.y;

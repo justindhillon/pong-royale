@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 });
 
 let players = {}
+let playerNumber = 0;
 
 app.use(express.static(__dirname + "/"));
 
@@ -23,7 +24,10 @@ io.on('connection', (socket) => {
     pos: 1/2,
     moveLeft: false,
     moveRight: false,
+    number: playerNumber,
   };
+
+  playerNumber++;
 
   io.emit('updatePlayers', players);
 

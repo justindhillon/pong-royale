@@ -17,23 +17,6 @@ function draw() {
     fill(255);
 }
 
-window.addEventListener('keydown', (event) => {
-    switch (event.code) {
-        case 'KeyA':
-            socket.emit('keydown', 'left');
-            break
-        case 'ArrowLeft':
-            socket.emit('keydown', 'left');
-            break
-        case 'KeyD':
-            socket.emit('keydown', 'right');
-            break
-        case 'ArrowRight':
-            socket.emit('keydown', 'right');
-            break
-    }
-})
-
 // Documentation:
 // https://editor.p5js.org/mrhaikuswan/sketches/hzMgNbSu_
 function keyPressed() {
