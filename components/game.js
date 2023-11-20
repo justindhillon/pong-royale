@@ -1,23 +1,3 @@
-const colors = [
-    "#c61111",
-    "#132ed2", 
-    "#11802d", 
-    "#ee54bb", 
-    "#f07d0d",
-    "#f6f657",
-    "#d6e0f0",
-    "#6b2fbc",
-    "#71491e",
-    "#38e2dd",
-    "#50f039",
-    "#50f039",
-    "#50f039",
-    "#fffebe",
-    "#708496",
-    "#928776",
-    "#ec7578",
-]
-
 let paddles = {}
 
 function setup() {
@@ -28,8 +8,7 @@ function setup() {
         if (Object.keys(vertices).length <= nextI) {
             nextI = 0;
         }
-        let color = colors[i];
-        paddles[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, color);
+        paddles[i] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, vertices[i].rotation, i);
     }
 
     createCanvas(800, 800);

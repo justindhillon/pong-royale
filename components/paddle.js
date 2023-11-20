@@ -1,3 +1,23 @@
+const colors = [
+    "#c61111",
+    "#132ed2", 
+    "#11802d", 
+    "#ee54bb", 
+    "#f07d0d",
+    "#f6f657",
+    "#d6e0f0",
+    "#6b2fbc",
+    "#71491e",
+    "#38e2dd",
+    "#50f039",
+    "#50f039",
+    "#50f039",
+    "#fffebe",
+    "#708496",
+    "#928776",
+    "#ec7578",
+]
+
 class Paddle {
     constructor(vertex1, vertex2, rotation, color) {
         this.vertex1 = vertex1;
@@ -44,7 +64,7 @@ class Paddle {
         translate(this.x, this.y);
         angleMode(DEGREES);
         rotate(this.rotation);
-        fill(this.color);
+        fill(colors[this.color]);
         rectMode(CENTER);
         rect(0, 0, this.width, this.thickness);
         pop();
