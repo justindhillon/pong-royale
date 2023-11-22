@@ -6,21 +6,14 @@ let paddleNumber = 0;
 let pucks = {};
 
 socket.on('update', (players, balls) => {
-    paddles = {};
-    let vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
+    paddles = players;
+    pucks = balls;
 
     let i = 0
     for (const id in players) {
-        let nextI = parseInt(i) + 1;
-        if (Object.keys(vertices).length <= nextI) {
-            nextI = 0;
-        }
-        paddles[id] = new Paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, players[id].pos, vertices[i].rotation, players[id].number);
         if (id === socket.id) {
             paddleNumber = i;
         }
         i++;
     }
-
-    pucks = balls;
 })

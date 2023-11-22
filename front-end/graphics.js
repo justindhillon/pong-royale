@@ -46,7 +46,7 @@ function draw() {
 
     // Draw Paddles
     for (let id in paddles) {
-        paddle(); // TODO
+        paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].playerNumber, paddles[id].height, paddles[id].width); // TODO
     }
 
     // Draw Balls

@@ -1,6 +1,9 @@
 // Code From socket.io Docs
 // https://socket.io/docs/v4/
 
+const { calculateVertices } = './back-end/calculateVertex.cjs';
+const { paddle } = './back-end/paddle.cjs';
+
 const express = require('express');
 const { createServer } = require('node:http');
 const { join } = require('node:path');
@@ -31,10 +34,15 @@ app.use(express.static(__dirname + "/"));
 
 io.on('connection', (socket) => {
   players[socket.id] = {
+    x: 400,
+    y: 400,
+    rotation: 0,
+    number: playerNumber,
+    height: 0, 
+    width: 0,
     pos: 1/2,
     moveLeft: false,
     moveRight: false,
-    number: playerNumber,
   };
 
   playerNumber++;
@@ -70,7 +78,27 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
+  let vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
+
   for (const id in players) {
+    let nextI = parseInt(i) + 1;
+    if (Object.keys(vertices).length <= nextI) {
+      nextI = 0;
+    }
+
+    [players[id].x, players[id].y] = paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, players[id].pos);
+
+    players[id].rotation = vertices[i].rotation;
+
+    const xDistance = vertices[nextI].x - vertices[i].x;
+    const yDistance = vertices[nextI].x - vertices[i].y;
+
+    // Pythagorean Theorem
+    const distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+    
+    players[id].width = distance/4;
+    players[id].thickness = distance/16;
+
     if (players[id].moveLeft) {
       if (players[id].pos <= 27/32) {
         players[id].pos += 1/60;
