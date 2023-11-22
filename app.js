@@ -75,6 +75,8 @@ io.on('connection', (socket) => {
         break
     }
   })
+
+  console.log(players);
 });
 
 setInterval(() => {
@@ -97,8 +99,8 @@ setInterval(() => {
     // Pythagorean Theorem
     const distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
     
-    players[id].width = distance/4;
-    players[id].thickness = distance/16;
+    players[id].height = distance/4;
+    players[id].width = distance/16;
 
     if (players[id].moveLeft) {
       if (players[id].pos <= 27/32) {
