@@ -47,3 +47,5 @@ function calculateVertices(n, radius, centerX, centerY) {
     vertices = rotatePolygon(vertices, angle, centerX, centerY);
     return vertices;
 }
+
+module.exports = { calculateVertices };
