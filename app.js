@@ -75,8 +75,6 @@ io.on('connection', (socket) => {
         break
     }
   })
-
-  console.log(players);
 });
 
 setInterval(() => {
@@ -94,7 +92,7 @@ setInterval(() => {
     players[id].rotation = vertices[i].rotation;
 
     const xDistance = vertices[nextI].x - vertices[i].x;
-    const yDistance = vertices[nextI].x - vertices[i].y;
+    const yDistance = vertices[nextI].y - vertices[i].y;
 
     // Pythagorean Theorem
     const distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
