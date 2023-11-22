@@ -1,9 +1,6 @@
 // Code From socket.io Docs
 // https://socket.io/docs/v4/
 
-const { calculateVertices } = require('./back-end/calculateVertex.js');
-const { paddle } = require('./back-end/paddle.js');
-
 const express = require('express');
 const { createServer } = require('node:http');
 const { join } = require('node:path');
@@ -12,6 +9,12 @@ const { Server } = require('socket.io');
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
+
+const { calculateVertices } = require('./back-end/calculateVertex.js');
+const { paddle } = require('./back-end/paddle.js');
+
+const { System } = require("detect-collisions");
+const system = new System();
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
@@ -27,8 +30,11 @@ let balls = {
     r: 12,
     direction: Math.random() * 360,
     speed: 4,
+    object: system.createCircle({x: 400, y: 400}, 12),
   }
 }
+
+system.createCircle({x: 400, y: 400}, 12),
 
 app.use(express.static(__dirname + "/"));
 
@@ -121,6 +127,8 @@ setInterval(() => {
 
     balls[id].x += moveX;
     balls[id].y += moveY;
+
+    balls[id].object.setPosition(balls[id].x, balls[id].y);
   }
 
   io.emit('update', players, balls);
