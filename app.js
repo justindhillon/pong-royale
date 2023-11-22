@@ -80,6 +80,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
   const vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
+  const gameBoundaryVertices = calculateVertices(Object.keys(players).length, 450, 400, 400);
 
   i = 0;
   for (const id in players) {
@@ -113,8 +114,20 @@ setInterval(() => {
     }
 
     // Colision Detection
+    const startX = vertices[i].x + (players[id].pos - 1/8) * xDistance;
+    const endX = vertices[i].x + (players[id].pos + 1/8) * xDistance;
+    const startY = vertices[i].y + (players[id].pos - 1/8) * yDistance;
+    const endY = vertices[i].y + (players[id].pos + 1/8) * yDistance;
+
+    //console.log(vertices[i].x, players[id].pos - 1/8, xDistance, startX);
+    //console.log(vertices[i].x, players[id].pos + 1/8, xDistance, endX);
+
     for (const id2 in balls) {
-      console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, vertices[i].x, vertices[i].y, vertices[nextI].x, vertices[nextI].y));
+      // Check if player lost
+      console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, gameBoundaryVertices[i].x, gameBoundaryVertices[i].y, gameBoundaryVertices[nextI].x, gameBoundaryVertices[nextI].y));
+      
+      // Check for paddle colisions
+      // console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY));
     }
 
     i++;
