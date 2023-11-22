@@ -20,11 +20,6 @@ const colors = [
 
 class Paddle {
     constructor(vertex1, vertex2, pos, rotation, color) {
-        this.vertex1 = vertex1;
-        this.vertex2 = vertex2;
-        this.rotation = rotation;
-        this.color = color % 17;
-
         this.xDistance = this.vertex2.x - this.vertex1.x;
         this.yDistance = this.vertex2.y - this.vertex1.y;
 
@@ -36,15 +31,15 @@ class Paddle {
         this.width = distance/4;
         this.thickness = distance/16;
     }
-    
-    show() {
-        push();
-        translate(this.x, this.y);
-        angleMode(DEGREES);
-        rotate(this.rotation);
-        fill(colors[this.color]);
-        rectMode(CENTER);
-        rect(0, 0, this.width, this.thickness);
-        pop();
-    }
+}
+
+function paddle(x, y, rotation, color, height, width) {
+    push();
+    translate(x, y);
+    angleMode(DEGREES);
+    rotate(rotation);
+    fill(colors[color % 17]);
+    rectMode(CENTER);
+    rect(0, 0, width, thickness);
+    pop();
 }
