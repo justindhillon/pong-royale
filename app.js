@@ -12,9 +12,7 @@ const io = new Server(server);
 
 const { calculateVertices } = require('./back-end/calculateVertex.js');
 const { paddle } = require('./back-end/paddle.js');
-
-const { System } = require("detect-collisions");
-const system = new System();
+const { collisionDetection } = require('./back-end/collisionDetection.js');
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
@@ -29,12 +27,9 @@ let balls = {
     y: 400,
     r: 12,
     direction: Math.random() * 360,
-    speed: 4,
-    object: system.createCircle({x: 400, y: 400}, 12),
+    speed: 0.25,
   }
 }
-
-system.createCircle({x: 400, y: 400}, 12),
 
 app.use(express.static(__dirname + "/"));
 
@@ -117,6 +112,11 @@ setInterval(() => {
       }
     }
 
+    // Colision Detection
+    for (const id2 in balls) {
+      console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, vertices[i].x, vertices[i].y, vertices[nextI].x, vertices[nextI].y));
+    }
+
     i++;
   }
 
@@ -127,8 +127,6 @@ setInterval(() => {
 
     balls[id].x += moveX;
     balls[id].y += moveY;
-
-    balls[id].object.setPosition(balls[id].x, balls[id].y);
   }
 
   io.emit('update', players, balls);
