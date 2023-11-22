@@ -5,7 +5,7 @@ function paddle(vertex1, vertex2, pos) {
     const x = vertex1.x + xDistance * pos;
     const y = vertex1.y + yDistance * pos;
 
-    return x, y;
+    return [x, y];
 }
 
 module.exports = { paddle };

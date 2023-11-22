@@ -79,7 +79,6 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
   const vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
-  console.log(vertices)
 
   i = 0;
   for (const id in players) {
