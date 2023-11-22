@@ -1,4 +1,4 @@
-export function paddle(vertex1, vertex2, pos) {
+function paddle(vertex1, vertex2, pos) {
     const xDistance = vertex2.x - vertex1.x;
     const yDistance = vertex2.y - vertex1.y;
 
@@ -7,3 +7,5 @@ export function paddle(vertex1, vertex2, pos) {
 
     return x, y;
 }
+
+module.exports = { paddle };

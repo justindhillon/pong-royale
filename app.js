@@ -1,8 +1,8 @@
 // Code From socket.io Docs
 // https://socket.io/docs/v4/
 
-const { calculateVertices } = './back-end/calculateVertex.cjs';
-const { paddle } = './back-end/paddle.cjs';
+const { calculateVertices } = require('./back-end/calculateVertex.js');
+const { paddle } = require('./back-end/paddle.js');
 
 const express = require('express');
 const { createServer } = require('node:http');
@@ -78,8 +78,10 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
-  let vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
+  const vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
+  console.log(vertices)
 
+  i = 0;
   for (const id in players) {
     let nextI = parseInt(i) + 1;
     if (Object.keys(vertices).length <= nextI) {
@@ -109,6 +111,8 @@ setInterval(() => {
         players[id].pos -= 1/60;
       }
     }
+
+    i++;
   }
 
   for (const id in balls) {

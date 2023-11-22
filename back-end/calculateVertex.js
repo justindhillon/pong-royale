@@ -21,7 +21,7 @@ function rotatePolygon(vertices, angle, centerX, centerY) {
     return vertices.map(vertex => rotatePoint(vertex.x, vertex.y, vertex.rotation, angle, centerX, centerY));
 }
 
-export function calculateVertices(n, radius, centerX, centerY) {
+function calculateVertices(n, radius, centerX, centerY) {
     let vertices = [];
     let initialAngleOffset = -90; // Aligns the first vertex at the bottom.
 
@@ -47,3 +47,5 @@ export function calculateVertices(n, radius, centerX, centerY) {
     vertices = rotatePolygon(vertices, angle, centerX, centerY);
     return vertices;
 }
+
+module.exports = { calculateVertices };
