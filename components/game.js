@@ -16,10 +16,9 @@ function draw() {
     }
 
     for (let id in pucks) {
-        pucks[id].show();
+        fill(255);
+        ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
     }
-    
-    fill(255);
 }
 
 // Documentation:

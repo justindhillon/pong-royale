@@ -22,7 +22,5 @@ socket.on('update', (players, balls) => {
         i++;
     }
 
-    for (const id in balls) {
-        pucks[id] = new Puck(balls[id].x, balls[id].y);
-    }
+    pucks = balls;
 })

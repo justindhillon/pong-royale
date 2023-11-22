@@ -21,6 +21,7 @@ let balls = {
   0: {
     x: 400,
     y: 400,
+    r: 12,
     direction: Math.random() * 360,
     speed: 4,
   }
