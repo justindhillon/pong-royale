@@ -17,9 +17,3 @@ socket.on('update', (players, balls) => {
         i++;
     }
 })
-
-let points = {};
-
-socket.on('debug', (vertices) => {
-    points = vertices;
-});

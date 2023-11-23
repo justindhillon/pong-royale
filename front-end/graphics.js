@@ -67,19 +67,6 @@ function draw() {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
     }
-
-    i = 0;
-    for (let id in points) {
-        let nextI = parseInt(i) + 1;
-        if (Object.keys(points).length <= nextI) {
-            nextI = 0;
-        }
-        strokeWeight(10); 
-        stroke(0, 255, 0);
-        line(points[i].x, points[i].y, points[nextI].x, points[nextI].y);
-        strokeWeight(0); 
-        i++;
-    }
 }
 
 // Documentation:

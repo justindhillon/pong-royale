@@ -141,9 +141,6 @@ setInterval(() => {
     const startY = vertices[i].y + (players[id].pos - 1/8) * yDistance;
     const endY = vertices[i].y + (players[id].pos + 1/8) * yDistance;
 
-    //console.log(vertices[i].x, players[id].pos - 1/8, xDistance, startX);
-    //console.log(vertices[i].x, players[id].pos + 1/8, xDistance, endX);
-
     for (const id2 in balls) {
       // Check if player lost
       if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, gameBoundaryVertices[i].x, gameBoundaryVertices[i].y, gameBoundaryVertices[nextI].x, gameBoundaryVertices[nextI].y)) {
@@ -157,10 +154,10 @@ setInterval(() => {
         players[id].dead = true;
       }
 
-      io.emit("debug", gameBoundaryVertices);
-      
       // Check for paddle colisions
-      // console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY));
+      if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY)) {
+        console.log("Collision with ", id);
+      }
     }
 
     i++;
