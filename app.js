@@ -27,7 +27,7 @@ let balls = {
     y: 400,
     r: 12,
     direction: Math.random() * 360,
-    speed: 0.25,
+    speed: 2,
   }
 }
 
@@ -124,7 +124,14 @@ setInterval(() => {
 
     for (const id2 in balls) {
       // Check if player lost
-      console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, gameBoundaryVertices[i].x, gameBoundaryVertices[i].y, gameBoundaryVertices[nextI].x, gameBoundaryVertices[nextI].y));
+      if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, gameBoundaryVertices[i].x, gameBoundaryVertices[i].y, gameBoundaryVertices[nextI].x, gameBoundaryVertices[nextI].y)) {
+        balls[id2].x = 400;
+        balls[id2].y = 400;
+        balls[id2].direction = Math.random() * 360;
+        balls[id2].speed = 2;
+      }
+
+      io.emit("debug", gameBoundaryVertices);
       
       // Check for paddle colisions
       // console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY));
