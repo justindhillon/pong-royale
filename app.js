@@ -27,7 +27,7 @@ let balls = {
     y: 400,
     r: 12,
     direction: Math.random() * 360,
-    speed: 0.25,
+    speed: 1,
   }
 }
 
@@ -173,6 +173,15 @@ setInterval(() => {
 
     balls[id].x += moveX;
     balls[id].y += moveY;
+
+    // If the ball is ever off screen for some reason
+    if (balls[id].x < -100 || 900 < balls[id].x || balls[id].y < -100 || 900 < balls[id].y) {
+      // Reset ball
+      balls[id].x = 400;
+      balls[id].y = 400;
+      balls[id].direction = Math.random() * 360;
+      balls[id].speed = 2;
+    }
   }
 
   io.emit('update', players, balls);
