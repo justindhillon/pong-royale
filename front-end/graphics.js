@@ -29,16 +29,23 @@ function paddle(x, y, rotation, color, height, width) {
     pop();
 }
 
+let canvasSize = 800;
+
 function setup() {
-    createCanvas(800, 800);
+    canvasSize = Math.min(windowWidth, windowHeight)
+    createCanvas(canvasSize, canvasSize);
+}
+
+function windowResized() {
+    canvasSize = Math.min(windowWidth, windowHeight)
+    resizeCanvas(canvasSize, canvasSize);
 }
 
 let i = 0;
 
 function draw() {
-    // Black Background
-    background(0);
-
+    push();
+    
     // Rotate Screen So Player Is On Bottom
     let alivePaddleCount = 0;
     for (let id in paddles) {
@@ -54,6 +61,12 @@ function draw() {
     const angle = -360 / alivePaddleCount;
     rotate(angle * (paddleNumber));
     translate(-width / 2, -height / 2);
+    
+    // Scale the screen to diffrent sizes
+    scale(canvasSize / 800);
+
+    // Black Background
+    background(0);
 
     // Draw Paddles
     for (let id in paddles) {
@@ -67,6 +80,7 @@ function draw() {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
     }
+    pop();
 }
 
 // Documentation:
