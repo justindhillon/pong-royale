@@ -9,8 +9,8 @@
 1. Clone
 
    ```sh
-   git clone https://github.com/justindhillon/pong-royal.git
-   cd pong-royal
+   git clone https://github.com/justindhillon/pong-royale.git
+   cd pong-royale
    ```
 
 2. Install
