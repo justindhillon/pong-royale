@@ -29,26 +29,50 @@ function paddle(x, y, rotation, color, height, width) {
     pop();
 }
 
+let canvasSize = 800;
+
 function setup() {
-    createCanvas(800, 800);
+    canvasSize = Math.min(windowWidth, windowHeight)
+    createCanvas(canvasSize, canvasSize);
+}
+
+function windowResized() {
+    canvasSize = Math.min(windowWidth, windowHeight)
+    resizeCanvas(canvasSize, canvasSize);
 }
 
 let i = 0;
 
 function draw() {
+    push();
+    
+    // Rotate Screen So Player Is On Bottom
+    let alivePaddleCount = 0;
+    for (let id in paddles) {
+        if (paddles.hasOwnProperty(id)) {
+            if (!paddles[id].dead) {
+                alivePaddleCount++;
+            }
+        }
+    }
+
+    angleMode(DEGREES);
+    translate(width / 2, height / 2);
+    const angle = -360 / alivePaddleCount;
+    rotate(angle * (paddleNumber));
+    translate(-width / 2, -height / 2);
+    
+    // Scale the screen to diffrent sizes
+    scale(canvasSize / 800);
+
     // Black Background
     background(0);
 
-    // Rotate Screen So Player Is On Bottom
-    angleMode(DEGREES);
-    translate(width / 2, height / 2);
-    const angle = -360 / Object.keys(paddles).length;
-    rotate(angle * (paddleNumber));
-    translate(-width / 2, -height / 2);
-
     // Draw Paddles
     for (let id in paddles) {
-        paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+        if (!paddles[id].dead) {
+            paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+        }
     }
 
     // Draw Balls
@@ -56,18 +80,7 @@ function draw() {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
     }
-
-    i = 0;
-    for (let id in points) {
-        let nextI = parseInt(i) + 1;
-        if (Object.keys(points).length <= nextI) {
-            nextI = 0;
-        }
-        strokeWeight(10); 
-        stroke(0, 255, 0);
-        line(points[i].x, points[i].y, points[nextI].x, points[nextI].y);
-        i++;
-    }
+    pop();
 }
 
 // Documentation:

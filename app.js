@@ -27,7 +27,7 @@ let balls = {
     y: 400,
     r: 12,
     direction: Math.random() * 360,
-    speed: 2,
+    speed: 1,
   }
 }
 
@@ -44,6 +44,7 @@ io.on('connection', (socket) => {
     pos: 1/2,
     moveLeft: false,
     moveRight: false,
+    dead: false,
   };
 
   playerNumber++;
@@ -79,11 +80,32 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
-  const vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
-  const gameBoundaryVertices = calculateVertices(Object.keys(players).length, 450, 400, 400);
+  let alivePlayerCount = 0;
+  for (let id in players) {
+    if (players.hasOwnProperty(id)) {
+      if (!players[id].dead) {
+        alivePlayerCount++;
+      }
+    }
+  }
+
+  // Reset the game
+  if (alivePlayerCount === 0) {
+    for (let id in players) {
+      if (players.hasOwnProperty(id)) {
+        players[id].dead = false;
+      }
+    }
+    return;
+  }
+
+  const vertices = calculateVertices(alivePlayerCount, 400, 400, 400);
+  const gameBoundaryVertices = calculateVertices(alivePlayerCount, 450, 400, 400);
 
   i = 0;
   for (const id in players) {
+    if (players[id].dead) continue;
+
     let nextI = parseInt(i) + 1;
     if (Object.keys(vertices).length <= nextI) {
       nextI = 0;
@@ -119,22 +141,23 @@ setInterval(() => {
     const startY = vertices[i].y + (players[id].pos - 1/8) * yDistance;
     const endY = vertices[i].y + (players[id].pos + 1/8) * yDistance;
 
-    //console.log(vertices[i].x, players[id].pos - 1/8, xDistance, startX);
-    //console.log(vertices[i].x, players[id].pos + 1/8, xDistance, endX);
-
     for (const id2 in balls) {
       // Check if player lost
       if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, gameBoundaryVertices[i].x, gameBoundaryVertices[i].y, gameBoundaryVertices[nextI].x, gameBoundaryVertices[nextI].y)) {
+        // Resets ball
         balls[id2].x = 400;
         balls[id2].y = 400;
         balls[id2].direction = Math.random() * 360;
         balls[id2].speed = 2;
+
+        // Removes player
+        players[id].dead = true;
       }
 
-      io.emit("debug", gameBoundaryVertices);
-      
       // Check for paddle colisions
-      // console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY));
+      if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY)) {
+        console.log("Collision with ", id);
+      }
     }
 
     i++;
@@ -147,6 +170,15 @@ setInterval(() => {
 
     balls[id].x += moveX;
     balls[id].y += moveY;
+
+    // If the ball is ever off screen for some reason
+    if (balls[id].x < -100 || 900 < balls[id].x || balls[id].y < -100 || 900 < balls[id].y) {
+      // Reset ball
+      balls[id].x = 400;
+      balls[id].y = 400;
+      balls[id].direction = Math.random() * 360;
+      balls[id].speed = 2;
+    }
   }
 
   io.emit('update', players, balls);

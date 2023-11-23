@@ -10,15 +10,10 @@ socket.on('update', (players, balls) => {
 
     let i = 0
     for (const id in players) {
+        if (players[id].dead) continue;
         if (id === socket.id) {
             paddleNumber = i;
         }
         i++;
     }
 })
-
-let points = {};
-
-socket.on('debug', (vertices) => {
-    points = vertices;
-});
