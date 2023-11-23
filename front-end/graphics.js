@@ -40,15 +40,26 @@ function draw() {
     background(0);
 
     // Rotate Screen So Player Is On Bottom
+    let alivePaddleCount = 0;
+    for (let id in paddles) {
+        if (paddles.hasOwnProperty(id)) {
+            if (!paddles[id].dead) {
+                alivePaddleCount++;
+            }
+        }
+    }
+
     angleMode(DEGREES);
     translate(width / 2, height / 2);
-    const angle = -360 / Object.keys(paddles).length;
+    const angle = -360 / alivePaddleCount;
     rotate(angle * (paddleNumber));
     translate(-width / 2, -height / 2);
 
     // Draw Paddles
     for (let id in paddles) {
-        paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+        if (!paddles[id].dead) {
+            paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+        }
     }
 
     // Draw Balls
@@ -66,6 +77,7 @@ function draw() {
         strokeWeight(10); 
         stroke(0, 255, 0);
         line(points[i].x, points[i].y, points[nextI].x, points[nextI].y);
+        strokeWeight(0); 
         i++;
     }
 }

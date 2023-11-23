@@ -27,7 +27,7 @@ let balls = {
     y: 400,
     r: 12,
     direction: Math.random() * 360,
-    speed: 2,
+    speed: 0.25,
   }
 }
 
@@ -44,6 +44,7 @@ io.on('connection', (socket) => {
     pos: 1/2,
     moveLeft: false,
     moveRight: false,
+    dead: false,
   };
 
   playerNumber++;
@@ -79,11 +80,32 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
-  const vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
-  const gameBoundaryVertices = calculateVertices(Object.keys(players).length, 450, 400, 400);
+  let alivePlayerCount = 0;
+  for (let id in players) {
+    if (players.hasOwnProperty(id)) {
+      if (!players[id].dead) {
+        alivePlayerCount++;
+      }
+    }
+  }
+
+  // Reset the game
+  if (alivePlayerCount === 0) {
+    for (let id in players) {
+      if (players.hasOwnProperty(id)) {
+        players[id].dead = false;
+      }
+    }
+    return;
+  }
+
+  const vertices = calculateVertices(alivePlayerCount, 400, 400, 400);
+  const gameBoundaryVertices = calculateVertices(alivePlayerCount, 450, 400, 400);
 
   i = 0;
   for (const id in players) {
+    if (players[id].dead) continue;
+
     let nextI = parseInt(i) + 1;
     if (Object.keys(vertices).length <= nextI) {
       nextI = 0;
@@ -125,10 +147,14 @@ setInterval(() => {
     for (const id2 in balls) {
       // Check if player lost
       if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, gameBoundaryVertices[i].x, gameBoundaryVertices[i].y, gameBoundaryVertices[nextI].x, gameBoundaryVertices[nextI].y)) {
+        // Resets ball
         balls[id2].x = 400;
         balls[id2].y = 400;
         balls[id2].direction = Math.random() * 360;
         balls[id2].speed = 2;
+
+        // Removes player
+        players[id].dead = true;
       }
 
       io.emit("debug", gameBoundaryVertices);
