@@ -1,7 +1,7 @@
 <div align="center">
 <img height="150px" src="https://raw.githubusercontent.com/justindhillon/pong-royal/main/public/logo.png">
-<h1>pong-royal</h1>
-<h3>A Multiplayer Pong Battle Royal</h3>
+<h1>pong-royale</h1>
+<h3>A Multiplayer Pong Battle Royale</h3>
 </div>
 
 ## Development Setup
