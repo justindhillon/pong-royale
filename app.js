@@ -1,9 +1,6 @@
 // Code From socket.io Docs
 // https://socket.io/docs/v4/
 
-const { calculateVertices } = require('./back-end/calculateVertex.js');
-const { paddle } = require('./back-end/paddle.js');
-
 const express = require('express');
 const { createServer } = require('node:http');
 const { join } = require('node:path');
@@ -12,6 +9,10 @@ const { Server } = require('socket.io');
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
+
+const { calculateVertices } = require('./back-end/calculateVertex.js');
+const { paddle } = require('./back-end/paddle.js');
+const { collisionDetection } = require('./back-end/collisionDetection.js');
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
@@ -26,7 +27,7 @@ let balls = {
     y: 400,
     r: 12,
     direction: Math.random() * 360,
-    speed: 4,
+    speed: 2,
   }
 }
 
@@ -79,6 +80,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
   const vertices = calculateVertices(Object.keys(players).length, 400, 400, 400);
+  const gameBoundaryVertices = calculateVertices(Object.keys(players).length, 450, 400, 400);
 
   i = 0;
   for (const id in players) {
@@ -109,6 +111,30 @@ setInterval(() => {
       if (5/32 <= players[id].pos) {
         players[id].pos -= 1/60;
       }
+    }
+
+    // Colision Detection
+    const startX = vertices[i].x + (players[id].pos - 1/8) * xDistance;
+    const endX = vertices[i].x + (players[id].pos + 1/8) * xDistance;
+    const startY = vertices[i].y + (players[id].pos - 1/8) * yDistance;
+    const endY = vertices[i].y + (players[id].pos + 1/8) * yDistance;
+
+    //console.log(vertices[i].x, players[id].pos - 1/8, xDistance, startX);
+    //console.log(vertices[i].x, players[id].pos + 1/8, xDistance, endX);
+
+    for (const id2 in balls) {
+      // Check if player lost
+      if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, gameBoundaryVertices[i].x, gameBoundaryVertices[i].y, gameBoundaryVertices[nextI].x, gameBoundaryVertices[nextI].y)) {
+        balls[id2].x = 400;
+        balls[id2].y = 400;
+        balls[id2].direction = Math.random() * 360;
+        balls[id2].speed = 2;
+      }
+
+      io.emit("debug", gameBoundaryVertices);
+      
+      // Check for paddle colisions
+      // console.log(collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY));
     }
 
     i++;

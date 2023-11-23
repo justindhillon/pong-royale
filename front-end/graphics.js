@@ -33,6 +33,8 @@ function setup() {
     createCanvas(800, 800);
 }
 
+let i = 0;
+
 function draw() {
     // Black Background
     background(0);
@@ -53,6 +55,18 @@ function draw() {
     for (let id in pucks) {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
+    }
+
+    i = 0;
+    for (let id in points) {
+        let nextI = parseInt(i) + 1;
+        if (Object.keys(points).length <= nextI) {
+            nextI = 0;
+        }
+        strokeWeight(10); 
+        stroke(0, 255, 0);
+        line(points[i].x, points[i].y, points[nextI].x, points[nextI].y);
+        i++;
     }
 }
 

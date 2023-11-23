@@ -2,7 +2,6 @@ const socket = io();
 
 let paddles = {};
 let paddleNumber = 0;
-
 let pucks = {};
 
 socket.on('update', (players, balls) => {
@@ -17,3 +16,9 @@ socket.on('update', (players, balls) => {
         i++;
     }
 })
+
+let points = {};
+
+socket.on('debug', (vertices) => {
+    points = vertices;
+});
