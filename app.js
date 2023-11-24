@@ -13,6 +13,7 @@ const io = new Server(server);
 const { calculateVertices } = require('./back-end/calculateVertex.js');
 const { paddle } = require('./back-end/paddle.js');
 const { collisionDetection } = require('./back-end/collisionDetection.js');
+const { getDistance } = require('./back-end/getDistance.js');
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
@@ -27,7 +28,7 @@ let balls = {
     y: 400,
     r: 12,
     direction: Math.random() * 360,
-    speed: 1,
+    speed: 2,
   }
 }
 
@@ -112,17 +113,11 @@ setInterval(() => {
     }
 
     [players[id].x, players[id].y] = paddle({ x: vertices[i].x, y: vertices[i].y }, { x: vertices[nextI].x, y: vertices[nextI].y }, players[id].pos);
-
     players[id].rotation = vertices[i].rotation;
 
-    const xDistance = vertices[nextI].x - vertices[i].x;
-    const yDistance = vertices[nextI].y - vertices[i].y;
-
-    // Pythagorean Theorem
-    const distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
-    
-    players[id].height = distance/4;
-    players[id].width = distance/16;
+    const xydistance = getDistance(vertices[nextI].x, vertices[nextI].y, vertices[i].x, vertices[i].y);
+    players[id].height = xydistance/4;
+    players[id].width = xydistance/16;
 
     if (players[id].moveLeft) {
       if (players[id].pos <= 27/32) {
@@ -136,6 +131,8 @@ setInterval(() => {
     }
 
     // Colision Detection
+    const xDistance = vertices[nextI].x - vertices[i].x;
+    const yDistance = vertices[nextI].y - vertices[i].y;
     const startX = vertices[i].x + (players[id].pos - 1/8) * xDistance;
     const endX = vertices[i].x + (players[id].pos + 1/8) * xDistance;
     const startY = vertices[i].y + (players[id].pos - 1/8) * yDistance;
@@ -148,7 +145,7 @@ setInterval(() => {
         balls[id2].x = 400;
         balls[id2].y = 400;
         balls[id2].direction = Math.random() * 360;
-        balls[id2].speed = 2;
+        balls[id2].speed = 0.25;
 
         // Removes player
         players[id].dead = true;
@@ -156,7 +153,20 @@ setInterval(() => {
 
       // Check for paddle colisions
       if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY)) {
-        console.log("Collision with ", id);
+        console.log(players[id].rotation, balls[id2].direction);
+
+        // Check for false positive
+        //if (-90 < balls[id2].direction < 90) continue;
+
+        let distance = getDistance(balls[id2].x, balls[id2].y, players[id].x, players[id].y);
+        distance = distance / players[id].height * 2;
+
+        const direction = 180 - balls[id2].direction;
+
+        console.log(direction);
+
+        balls[id2].direction = direction;
+        balls[id2].speed += 0.5;
       }
     }
 

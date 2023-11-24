@@ -29,6 +29,31 @@ function paddle(x, y, rotation, color, height, width) {
     pop();
 }
 
+function drawArrow(position, angle) {
+    // Save the current drawing state
+    push();
+
+    // Translate to the position where the arrow will be drawn
+    translate(position.x, position.y);
+
+    // Rotate the canvas to the specified angle
+    angleMode(DEGREES);
+    rotate(angle);
+
+    // Draw the arrow
+    // Line for the arrow shaft
+    stroke(255);
+    line(0, 0, 50, 0);
+
+    // Triangle for the arrow head
+    let arrowSize = 7;
+    translate(50, 0);
+    triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+
+    // Restore the drawing state
+    pop();
+}
+
 let canvasSize = 800;
 
 function setup() {
@@ -72,14 +97,20 @@ function draw() {
     for (let id in paddles) {
         if (!paddles[id].dead) {
             paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+            drawArrow(createVector(paddles[id].x, paddles[id].y), paddles[id].rotation);
         }
     }
 
-    // Draw Balls
+    // Draw Pucks
     for (let id in pucks) {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
+        drawArrow(createVector(pucks[id].x, pucks[id].y), pucks[id].direction);
+        console.log(pucks[0].direction);
     }
+
+    drawArrow(createVector(400, 400), 0);
+
     pop();
 }
 
