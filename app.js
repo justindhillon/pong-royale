@@ -29,6 +29,13 @@ let balls = {
     r: 12,
     direction: Math.random() * 360,
     speed: 2,
+  },
+  1: {
+    x: 400,
+    y: 400,
+    r: 12,
+    direction: Math.random() * 360,
+    speed: 2,
   }
 }
 
@@ -156,12 +163,12 @@ setInterval(() => {
         console.log(players[id].rotation, balls[id2].direction);
 
         // Check for false positive
-        //if (-90 < balls[id2].direction < 90) continue;
+        if (players[id].direction - 90 < balls[id2].direction < players[id].direction + 90) continue;
 
-        let distance = getDistance(balls[id2].x, balls[id2].y, players[id].x, players[id].y);
-        distance = distance / players[id].height * 2;
+        //let distance = getDistance(balls[id2].x, balls[id2].y, players[id].x, players[id].y);
+        //distance = distance / players[id].height * 2;
 
-        const direction = 180 - balls[id2].direction;
+        const direction = players[id].rotation * 2 + 360 - balls[id2].direction;
 
         console.log(direction);
 
@@ -174,7 +181,7 @@ setInterval(() => {
   }
 
   for (const id in balls) {
-    const direction = balls[id].direction * (180 / Math.PI);
+    const direction = balls[id].direction * (Math.PI / 180);
     const moveX = Math.cos(direction) * balls[id].speed;
     const moveY = Math.sin(direction) * balls[id].speed;
 

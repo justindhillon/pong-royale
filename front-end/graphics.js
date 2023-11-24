@@ -69,7 +69,7 @@ function windowResized() {
 let i = 0;
 
 function draw() {
-    push();
+    push();/*
     
     // Rotate Screen So Player Is On Bottom
     let alivePaddleCount = 0;
@@ -85,7 +85,7 @@ function draw() {
     translate(width / 2, height / 2);
     const angle = -360 / alivePaddleCount;
     rotate(angle * (paddleNumber));
-    translate(-width / 2, -height / 2);
+    translate(-width / 2, -height / 2);*/
     
     // Scale the screen to diffrent sizes
     scale(canvasSize / 800);
