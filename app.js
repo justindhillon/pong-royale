@@ -146,7 +146,7 @@ setInterval(() => {
         balls[id2].x = 400;
         balls[id2].y = 400;
         balls[id2].direction = Math.random() * 360;
-        balls[id2].speed = 0.25;
+        balls[id2].speed = 2;
         balls[id2].lastPlayer = undefined;
 
         // Removes player
@@ -168,7 +168,7 @@ setInterval(() => {
         const direction = players[id].rotation * 2 + 360 - balls[id2].direction;
 
         balls[id2].direction = direction;
-        balls[id2].speed += 0.5;
+        balls[id2].speed += 1;
       }
     }
 

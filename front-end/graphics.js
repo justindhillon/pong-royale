@@ -29,31 +29,6 @@ function paddle(x, y, rotation, color, height, width) {
     pop();
 }
 
-function drawArrow(position, angle) {
-    // Save the current drawing state
-    push();
-
-    // Translate to the position where the arrow will be drawn
-    translate(position.x, position.y);
-
-    // Rotate the canvas to the specified angle
-    angleMode(DEGREES);
-    rotate(angle);
-
-    // Draw the arrow
-    // Line for the arrow shaft
-    stroke(255);
-    line(0, 0, 50, 0);
-
-    // Triangle for the arrow head
-    let arrowSize = 7;
-    translate(50, 0);
-    triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
-
-    // Restore the drawing state
-    pop();
-}
-
 let canvasSize = 800;
 
 function setup() {
@@ -69,7 +44,7 @@ function windowResized() {
 let i = 0;
 
 function draw() {
-    push();/*
+    push();
     
     // Rotate Screen So Player Is On Bottom
     let alivePaddleCount = 0;
@@ -85,7 +60,7 @@ function draw() {
     translate(width / 2, height / 2);
     const angle = -360 / alivePaddleCount;
     rotate(angle * (paddleNumber));
-    translate(-width / 2, -height / 2);*/
+    translate(-width / 2, -height / 2);
     
     // Scale the screen to diffrent sizes
     scale(canvasSize / 800);
@@ -97,7 +72,6 @@ function draw() {
     for (let id in paddles) {
         if (!paddles[id].dead) {
             paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
-            drawArrow(createVector(paddles[id].x, paddles[id].y), paddles[id].rotation);
         }
     }
 
@@ -105,10 +79,7 @@ function draw() {
     for (let id in pucks) {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
-        drawArrow(createVector(pucks[id].x, pucks[id].y), pucks[id].direction);
     }
-
-    drawArrow(createVector(400, 400), 0);
 
     pop();
 }
