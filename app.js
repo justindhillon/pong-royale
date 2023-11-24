@@ -29,14 +29,8 @@ let balls = {
     r: 12,
     direction: Math.random() * 360,
     speed: 2,
+    lastPlayer: undefined,
   },
-  1: {
-    x: 400,
-    y: 400,
-    r: 12,
-    direction: Math.random() * 360,
-    speed: 2,
-  }
 }
 
 app.use(express.static(__dirname + "/"));
@@ -153,6 +147,7 @@ setInterval(() => {
         balls[id2].y = 400;
         balls[id2].direction = Math.random() * 360;
         balls[id2].speed = 0.25;
+        balls[id2].lastPlayer = undefined;
 
         // Removes player
         players[id].dead = true;
@@ -163,14 +158,14 @@ setInterval(() => {
         console.log(players[id].rotation, balls[id2].direction);
 
         // Check for false positive
-        if (players[id].direction - 90 < balls[id2].direction < players[id].direction + 90) continue;
+        if (balls[id2].lastPlayer === id) continue;
 
-        //let distance = getDistance(balls[id2].x, balls[id2].y, players[id].x, players[id].y);
-        //distance = distance / players[id].height * 2;
+        balls[id2].lastPlayer = id
+
+        // let distance = getDistance(balls[id2].x, balls[id2].y, players[id].x, players[id].y);
+        // distance = distance / players[id].height * 2;
 
         const direction = players[id].rotation * 2 + 360 - balls[id2].direction;
-
-        console.log(direction);
 
         balls[id2].direction = direction;
         balls[id2].speed += 0.5;
@@ -195,6 +190,7 @@ setInterval(() => {
       balls[id].y = 400;
       balls[id].direction = Math.random() * 360;
       balls[id].speed = 2;
+      balls[id2].lastPlayer = undefined;
     }
   }
 

@@ -106,7 +106,6 @@ function draw() {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
         drawArrow(createVector(pucks[id].x, pucks[id].y), pucks[id].direction);
-        console.log(pucks[0].direction);
     }
 
     drawArrow(createVector(400, 400), 0);
