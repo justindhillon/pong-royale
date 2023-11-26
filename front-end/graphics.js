@@ -75,11 +75,12 @@ function draw() {
         }
     }
 
-    // Draw Balls
+    // Draw Pucks
     for (let id in pucks) {
         fill(255);
         ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
     }
+
     pop();
 }
 
