@@ -190,7 +190,7 @@ setInterval(() => {
       balls[id].y = 400;
       balls[id].direction = Math.random() * 360;
       balls[id].speed = 2;
-      balls[id2].lastPlayer = undefined;
+      balls[id].lastPlayer = undefined;
     }
   }
 
