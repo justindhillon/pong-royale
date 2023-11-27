@@ -56,7 +56,7 @@ function draw() {
         }
     }
 
-    if (3 < players) {
+    if (3 <= players) {
         angleMode(DEGREES);
         translate(width / 2, height / 2);
         const angle = -360 / alivePaddleCount;
@@ -67,18 +67,17 @@ function draw() {
     // Scale the screen to diffrent sizes
     scale(canvasSize / 800);
 
+    // Black Background
+    background(0);
+
     if (players < 3) {
         // If not enough players have joined
-        clear();
         fill(255);
         textSize(32);
         textAlign(CENTER, CENTER);
         text('We need ' + (3 - players) + " more players to start", 250, 400, 300);
         return;
     }
-
-    // Black Background
-    background(0);
 
     // Draw Paddles
     for (let id in paddles) {
