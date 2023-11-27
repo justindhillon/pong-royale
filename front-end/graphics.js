@@ -57,16 +57,28 @@ function draw() {
     }
 
     angleMode(DEGREES);
-    translate(width / 2, height / 2);
-    const angle = -360 / alivePaddleCount;
-    rotate(angle * (paddleNumber));
-    translate(-width / 2, -height / 2);
+
+    if (3 <= Object.keys(paddles).length) {
+        translate(width / 2, height / 2);
+        const angle = -360 / alivePaddleCount;
+        rotate(angle * (paddleNumber));
+        translate(-width / 2, -height / 2);
+    }
     
     // Scale the screen to diffrent sizes
     scale(canvasSize / 800);
 
     // Black Background
     background(0);
+
+    if (Object.keys(paddles).length < 3) {
+        fill(255);
+        textSize(32);
+        textAlign(CENTER, CENTER);
+        text('We need ' + (3 - Object.keys(paddles).length) + " more players to start", 250, 400, 300);
+        pop();
+        return;
+    }
 
     // Draw Paddles
     for (let id in paddles) {
