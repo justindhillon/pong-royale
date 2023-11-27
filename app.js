@@ -82,6 +82,13 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
+  if (Object.keys(players).length < 3) {
+    io.emit('start', Object.keys(players).length );
+    return;
+  }
+
+  io.emit('start', Object.keys(players).length);
+
   let alivePlayerCount = 0;
   for (let id in players) {
     if (players.hasOwnProperty(id)) {

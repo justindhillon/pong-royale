@@ -56,14 +56,26 @@ function draw() {
         }
     }
 
-    angleMode(DEGREES);
-    translate(width / 2, height / 2);
-    const angle = -360 / alivePaddleCount;
-    rotate(angle * (paddleNumber));
-    translate(-width / 2, -height / 2);
+    if (3 < players) {
+        angleMode(DEGREES);
+        translate(width / 2, height / 2);
+        const angle = -360 / alivePaddleCount;
+        rotate(angle * (paddleNumber));
+        translate(-width / 2, -height / 2);
+    }
     
     // Scale the screen to diffrent sizes
     scale(canvasSize / 800);
+
+    if (players < 3) {
+        // If not enough players have joined
+        clear();
+        fill(255);
+        textSize(32);
+        textAlign(CENTER, CENTER);
+        text('We need ' + (3 - players) + " more players to start", 250, 400, 300);
+        return;
+    }
 
     // Black Background
     background(0);
