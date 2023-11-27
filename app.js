@@ -155,8 +155,6 @@ setInterval(() => {
 
       // Check for paddle colisions
       if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY)) {
-        console.log(players[id].rotation, balls[id2].direction);
-
         // Check for false positive
         if (balls[id2].lastPlayer === id) continue;
 
