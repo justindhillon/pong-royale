@@ -56,13 +56,11 @@ function draw() {
         }
     }
 
-    if (3 <= players) {
-        angleMode(DEGREES);
-        translate(width / 2, height / 2);
-        const angle = -360 / alivePaddleCount;
-        rotate(angle * (paddleNumber));
-        translate(-width / 2, -height / 2);
-    }
+    angleMode(DEGREES);
+    translate(width / 2, height / 2);
+    const angle = -360 / alivePaddleCount;
+    rotate(angle * (paddleNumber));
+    translate(-width / 2, -height / 2);
     
     // Scale the screen to diffrent sizes
     scale(canvasSize / 800);
@@ -70,26 +68,19 @@ function draw() {
     // Black Background
     background(0);
 
-    if (players < 3) {
-        // If not enough players have joined
-        fill(255);
-        textSize(32);
-        textAlign(CENTER, CENTER);
-        text('We need ' + (3 - players) + " more players to start", 250, 400, 300);
-    } else {
-        // Draw Paddles
-        for (let id in paddles) {
-            if (!paddles[id].dead) {
-                paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
-            }
-        }
-
-        // Draw Pucks
-        for (let id in pucks) {
-            fill(255);
-            ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
+    // Draw Paddles
+    for (let id in paddles) {
+        if (!paddles[id].dead) {
+            paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
         }
     }
+
+    // Draw Pucks
+    for (let id in pucks) {
+        fill(255);
+        ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
+    }
+
     pop();
 }
 

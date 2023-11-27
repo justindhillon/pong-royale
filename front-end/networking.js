@@ -4,12 +4,6 @@ let paddles = {};
 let paddleNumber = 0;
 let pucks = {};
 
-let players = 0;
-
-socket.on('start', (numberOfPlayers) => {
-    players = numberOfPlayers;
-})
-
 socket.on('update', (players, balls) => {
     paddles = players;
     pucks = balls;

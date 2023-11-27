@@ -52,12 +52,10 @@ io.on('connection', (socket) => {
   playerNumber++;
 
   io.emit('update', players, balls);
-  io.emit('start', Object.keys(players).length);
 
   socket.on('disconnect', (reason) => {
     delete players[socket.id];
     io.emit('update', players, balls);
-    io.emit('start', Object.keys(players).length);
   });
 
   socket.on('keydown', (direction) => {
@@ -84,9 +82,6 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
-  io.emit('start', Object.keys(players).length);
-  if (Object.keys(players).length < 3) return;
-
   let alivePlayerCount = 0;
   for (let id in players) {
     if (players.hasOwnProperty(id)) {
@@ -160,6 +155,8 @@ setInterval(() => {
 
       // Check for paddle colisions
       if (collisionDetection(balls[id2].x, balls[id2].y, balls[id2].r, startX, startY, endX, endY)) {
+        console.log(players[id].rotation, balls[id2].direction);
+
         // Check for false positive
         if (balls[id2].lastPlayer === id) continue;
 
