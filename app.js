@@ -57,6 +57,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', (reason) => {
     delete players[socket.id];
     io.emit('update', players, balls);
+    io.emit('start', Object.keys(players).length);
   });
 
   socket.on('keydown', (direction) => {

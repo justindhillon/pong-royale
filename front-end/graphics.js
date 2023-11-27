@@ -76,22 +76,20 @@ function draw() {
         textSize(32);
         textAlign(CENTER, CENTER);
         text('We need ' + (3 - players) + " more players to start", 250, 400, 300);
-        return;
-    }
+    } else {
+        // Draw Paddles
+        for (let id in paddles) {
+            if (!paddles[id].dead) {
+                paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+            }
+        }
 
-    // Draw Paddles
-    for (let id in paddles) {
-        if (!paddles[id].dead) {
-            paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+        // Draw Pucks
+        for (let id in pucks) {
+            fill(255);
+            ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
         }
     }
-
-    // Draw Pucks
-    for (let id in pucks) {
-        fill(255);
-        ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
-    }
-
     pop();
 }
 
