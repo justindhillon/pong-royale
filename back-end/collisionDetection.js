@@ -1,6 +1,6 @@
 function collisionDetection(circleX, circleY, circleRadius, lineX1, lineY1, lineX2, lineY2) {
     // Function to calculate the distance between a point and a line
-    function pointLineDistance(x, y, x1, y1, x2, y2) {
+    function pointLineDistanceSquared(x, y, x1, y1, x2, y2) {
         let A = x - x1;
         let B = y - y1;
         let C = x2 - x1;
@@ -28,14 +28,14 @@ function collisionDetection(circleX, circleY, circleRadius, lineX1, lineY1, line
 
         let dx = x - xx;
         let dy = y - yy;
-        return Math.sqrt(dx * dx + dy * dy);
+        return dx * dx + dy * dy;
     }
 
     // Calculate the distance from the circle's center to the line
-    let distance = pointLineDistance(circleX, circleY, lineX1, lineY1, lineX2, lineY2);
+    let distance = pointLineDistanceSquared(circleX, circleY, lineX1, lineY1, lineX2, lineY2);
 
     // Check if the distance is less than or equal to the radius of the circle
-    return distance <= circleRadius;
+    return distance <= circleRadius * circleRadius;
 }
 
 module.exports = { collisionDetection };
