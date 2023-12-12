@@ -29,7 +29,7 @@
 
    You can stop it at any time by pressing <kbd>CTRL</kbd> + <kbd>C</kbd>
    <br>
-   It can be accessed on locahost:3030
+   It can be accessed on locahost:8080
 
 ## Contributing
 We welcome contributions of any kind including pages, suggestions, bug reports, pull requests etc. We would love to hear from you.
