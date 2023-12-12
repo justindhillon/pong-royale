@@ -1,28 +1,20 @@
 {
-  "name": "pong-royal",
-  "version": "1.0.0",
-  "description": "A Multiplayer Pong Battle Royal",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/justindhillon/pong-royal.git"
-  },
+  "name": "pong-royale",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "node app.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": [
-    "javascript",
-    "p5js",
-    "game",
-    "multiplayer"
-  ],
-  "author": "Justin Dhillon",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/justindhillon/pong-royal/issues"
-  },
-  "homepage": "https://github.com/justindhillon/pong-royal#readme",
   "dependencies": {
-    "express": "^4.18.2",
-    "socket.io": "^4.7.2"
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4"
   }
 }
