@@ -21,10 +21,10 @@
 
 3. Start
 
-   Once dependencies are installed, run with:
+   Once dependencies are installed, run in developer mode with:
 
    ```sh
-   npm start
+   npm run dev
    ```
 
    You can stop it at any time by pressing <kbd>CTRL</kbd> + <kbd>C</kbd>
