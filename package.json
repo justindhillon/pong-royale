@@ -7,8 +7,7 @@
     "url": "git+https://github.com/justindhillon/pong-royal.git"
   },
   "scripts": {
-    "build": "webpack",
-    "start": "node index.js"
+    "start": "webpack && node index.js"
   },
   "keywords": [
     "javascript",
