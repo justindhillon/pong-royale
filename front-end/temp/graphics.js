@@ -1,4 +1,4 @@
-import p5 from 'p5';
+import _ from 'p5';
 
 const colors = [
     "#c61111",

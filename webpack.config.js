@@ -1,13 +1,10 @@
-var glob = require('glob');
-var path = require('path');
+const path = require('path');
 
 module.exports = {
-    entry: glob.sync('../front-end/src/**.js').reduce(function(obj, el){
-        obj[path.parse(el).name] = el;
-        return obj
-    },{}),
+    entry: ['./front-end/src/graphics.js'],
     output: {
-        path: path.resolve(__dirname, '../front-end/dist/'),
-        filename: "[name]"
-    }
-}
+        filename: 'main.js',
+        path: path.resolve(__dirname, './front-end/dist'),
+    },
+    stats: 'errors-only',
+};
