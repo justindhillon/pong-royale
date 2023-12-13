@@ -2,13 +2,14 @@
   "name": "pong-royal",
   "version": "1.0.0",
   "description": "A Multiplayer Pong Battle Royal",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/justindhillon/pong-royal.git"
   },
   "scripts": {
     "dev": "webpack --watch --mode=development && node index.js",
-    "build": "webpack",
+    "build": "webpack --mode=production",
     "start": "node index.js"
   },
   "keywords": [
