@@ -21,7 +21,6 @@ const colors = [
 function paddle(x, y, rotation, color, height, width) {
     push();
     translate(x, y);
-    angleMode(DEGREES);
     rotate(rotation);
     fill(colors[color % 17]);
     rectMode(CENTER);
@@ -34,6 +33,7 @@ let canvasSize = 800;
 function setup() {
     canvasSize = Math.min(windowWidth, windowHeight)
     createCanvas(canvasSize, canvasSize);
+    angleMode(DEGREES);
 }
 
 function windowResized() {
@@ -55,8 +55,6 @@ function draw() {
             }
         }
     }
-
-    angleMode(DEGREES);
 
     if (3 <= Object.keys(paddles).length) {
         translate(width / 2, height / 2);
