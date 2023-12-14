@@ -12,51 +12,40 @@ function windowResized() {
     resizeCanvas(canvasSize, canvasSize);
 }
 
-let i = 0;
-
 function draw() {    
-    // Rotate Screen So Player Is On Bottom
-    let alivePaddleCount = 0;
-    for (let id in players) {
-        if (players.hasOwnProperty(id)) {
-            if (!players[id].dead) {
-                alivePaddleCount++;
-            }
-        }
-    }
+    // Clear Screen
+    background(0);
 
-    if (3 <= Object.keys(players).length) {
-        translate(width / 2, height / 2);
-        const angle = -360 / alivePaddleCount;
-        rotate(angle * (paddleNumber));
-        translate(-width / 2, -height / 2);
-    }
-    
+    // Check if there are enough players to start the game
+    const playerCount = Object.keys(players).length;
+    if (!enoughPlayers(playerCount)) return;
+
+    // Rotate Screen So Player Is On Bottom
+    const alivePlayers = Object.entries(players)
+                               .filter((player) => !player[1].dead)
+                               .length;
+
+    translate(width / 2, height / 2);
+    const angle = -360 / alivePlayers;
+    rotate(angle * (paddleNumber));
+    translate(-width / 2, -height / 2);
+
     // Scale the screen to diffrent sizes
     scale(canvasSize / 800);
 
-    // Black Background
-    background(0);
-
-    if (Object.keys(players).length < 3) {
-        fill(255);
-        textSize(32);
-        textAlign(CENTER, CENTER);
-        text('We need ' + (3 - Object.keys(players).length) + " more players to start", 250, 400, 300);
-        pop();
-        return;
-    }
-
     // Draw Players
     for (let id in players) {
-        if (!players[id].dead) {
-            paddle(players[id].x, players[id].y, players[id].rotation, players[id].number, players[id].height, players[id].width);
+        const player = players[id];
+        if (!player.dead) {
+            paddle(player.x, player.y, player.rotation, 
+                   player.number, player.height, player.width);
         }
     }
 
     // Draw Balls
     for (let id in balls) {
         fill(255);
-        ellipse(balls[id].x, balls[id].y, balls[id].r*2);
+        const ball = balls[id];
+        ellipse(ball.x, ball.y, ball.r*2);
     }
 }
