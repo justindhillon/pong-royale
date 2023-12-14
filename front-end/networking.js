@@ -1,12 +1,12 @@
 const socket = io();
 
-let paddles = {};
+let players = {};
 let paddleNumber = 0;
-let pucks = {};
+let balls = {};
 
-socket.on('update', (players, balls) => {
-    paddles = players;
-    pucks = balls;
+socket.on('update', (server_players, server_balls) => {
+    players = server_players;
+    balls = server_balls;
 
     let i = 0
     for (const id in players) {

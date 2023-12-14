@@ -3,6 +3,7 @@ let canvasSize = 800;
 function setup() {
     canvasSize = Math.min(windowWidth, windowHeight)
     createCanvas(canvasSize, canvasSize);
+    background(0);
     angleMode(DEGREES);
 }
 
@@ -13,20 +14,18 @@ function windowResized() {
 
 let i = 0;
 
-function draw() {
-    push();
-    
+function draw() {    
     // Rotate Screen So Player Is On Bottom
     let alivePaddleCount = 0;
-    for (let id in paddles) {
-        if (paddles.hasOwnProperty(id)) {
-            if (!paddles[id].dead) {
+    for (let id in players) {
+        if (players.hasOwnProperty(id)) {
+            if (!players[id].dead) {
                 alivePaddleCount++;
             }
         }
     }
 
-    if (3 <= Object.keys(paddles).length) {
+    if (3 <= Object.keys(players).length) {
         translate(width / 2, height / 2);
         const angle = -360 / alivePaddleCount;
         rotate(angle * (paddleNumber));
@@ -39,27 +38,25 @@ function draw() {
     // Black Background
     background(0);
 
-    if (Object.keys(paddles).length < 3) {
+    if (Object.keys(players).length < 3) {
         fill(255);
         textSize(32);
         textAlign(CENTER, CENTER);
-        text('We need ' + (3 - Object.keys(paddles).length) + " more players to start", 250, 400, 300);
+        text('We need ' + (3 - Object.keys(players).length) + " more players to start", 250, 400, 300);
         pop();
         return;
     }
 
-    // Draw Paddles
-    for (let id in paddles) {
-        if (!paddles[id].dead) {
-            paddle(paddles[id].x, paddles[id].y, paddles[id].rotation, paddles[id].number, paddles[id].height, paddles[id].width);
+    // Draw Players
+    for (let id in players) {
+        if (!players[id].dead) {
+            paddle(players[id].x, players[id].y, players[id].rotation, players[id].number, players[id].height, players[id].width);
         }
     }
 
-    // Draw Pucks
-    for (let id in pucks) {
+    // Draw Balls
+    for (let id in balls) {
         fill(255);
-        ellipse(pucks[id].x, pucks[id].y, pucks[id].r*2);
+        ellipse(balls[id].x, balls[id].y, balls[id].r*2);
     }
-
-    pop();
 }
