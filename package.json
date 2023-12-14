@@ -8,6 +8,9 @@
     "url": "git+https://github.com/justindhillon/pong-royal.git"
   },
   "scripts": {
+    "minify-js": "uglifyjs ./front-end/*.js -o dist/bundle.min.js",
+    "minify-css": "cleancss ./front-end/*.css -o dist/styles.min.css",
+    "build": "npm run minify-js && npm run minify-css",
     "start": "node index.js"
   },
   "keywords": [
@@ -25,5 +28,10 @@
   "dependencies": {
     "express": "^4.18.2",
     "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "html-minifier": "^4.0.0",
+    "uglify-js": "^3.17.4"
   }
 }

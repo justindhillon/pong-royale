@@ -30,7 +30,7 @@ let balls = {
   },
 }
 
-app.use(express.static('front-end'));
+app.use(express.static('dist'));
 
 io.on('connection', (socket) => {
   players[socket.id] = {

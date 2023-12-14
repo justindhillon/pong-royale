@@ -19,9 +19,17 @@
    npm install
    ```
 
-3. Start
+3. Build
 
-   Once dependencies are installed, run with:
+   Once dependencies are installed, build with:
+
+   ```sh
+   npm run build
+   ```
+
+4. Start
+
+   Once built, run with:
 
    ```sh
    npm start
