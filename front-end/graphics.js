@@ -4,6 +4,7 @@ function setup() {
     canvasSize = Math.min(windowWidth, windowHeight)
     createCanvas(canvasSize, canvasSize);
     angleMode(DEGREES);
+    rectMode(CENTER);
 }
 
 function windowResized() {

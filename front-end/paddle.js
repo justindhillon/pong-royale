@@ -23,7 +23,6 @@ function paddle(x, y, rotation, color, height, width) {
     translate(x, y);
     rotate(rotation);
     fill(colors[color % 17]);
-    rectMode(CENTER);
-    rect(0, 0, height, width, 5);
+    rect(0, width / 2, height, width, 5);
     pop();
 }
