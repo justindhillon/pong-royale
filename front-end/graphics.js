@@ -24,7 +24,7 @@ function paddle(x, y, rotation, color, height, width) {
     rotate(rotation);
     fill(colors[color % 17]);
     rectMode(CENTER);
-    rect(0, 0, height, width);
+    rect(0, 0, height, width, 5);
     pop();
 }
 
