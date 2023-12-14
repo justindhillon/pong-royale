@@ -16,7 +16,7 @@ function gameLoop(players, balls) {
     }
 
     // Reset the game
-    if (alivePlayerCount === 0) {
+    if (alivePlayerCount < 2) {
         for (let id in players) {
             if (players.hasOwnProperty(id)) {
                 players[id].dead = false;
