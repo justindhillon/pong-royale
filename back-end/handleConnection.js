@@ -1,6 +1,6 @@
 let playerNumber = 0;
 
-function connection(socket, players) {
+function handleConnection(socket, players) {
     players[socket.id] = {
         x: 400,
         y: 400,
@@ -45,4 +45,4 @@ function connection(socket, players) {
     return players;
 }
 
-module.exports = { connection };
+module.exports = { handleConnection };
