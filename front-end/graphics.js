@@ -3,7 +3,6 @@ let canvasSize = 800;
 function setup() {
     canvasSize = Math.min(windowWidth, windowHeight)
     createCanvas(canvasSize, canvasSize);
-    background(0);
     angleMode(DEGREES);
 }
 
