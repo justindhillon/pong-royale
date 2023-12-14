@@ -8,7 +8,7 @@
     "url": "git+https://github.com/justindhillon/pong-royal.git"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "keywords": [
     "javascript",

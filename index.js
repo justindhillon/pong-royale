@@ -3,10 +3,11 @@
 
 const express = require('express');
 const { createServer } = require('node:http');
-const { join } = require('node:path');
 const { Server } = require('socket.io');
 
 const app = express();
+const port = 3030;
+
 const server = createServer(app);
 const io = new Server(server);
 
@@ -14,10 +15,6 @@ const { calculateVertices } = require('./back-end/calculateVertex.js');
 const { paddle } = require('./back-end/paddle.js');
 const { collisionDetection } = require('./back-end/collisionDetection.js');
 const { getDistance } = require('./back-end/getDistance.js');
-
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'index.html'));
-});
 
 let players = {}
 let playerNumber = 0;
@@ -33,7 +30,7 @@ let balls = {
   },
 }
 
-app.use(express.static(__dirname + "/"));
+app.use(express.static('front-end'));
 
 io.on('connection', (socket) => {
   players[socket.id] = {
@@ -195,6 +192,6 @@ setInterval(() => {
   io.emit('update', players, balls);
 }, 15)
 
-server.listen(3030, () => {
-  console.log('server running at http://localhost:3030');
+server.listen(port, () => {
+  console.log('server running at http://localhost:' + port);
 });
