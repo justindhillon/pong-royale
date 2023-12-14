@@ -19,6 +19,7 @@ let balls = {
     r: 12,
     direction: Math.random() * 360,
     speed: 2,
+    lastPlayer: undefined,
   },
 }
 
