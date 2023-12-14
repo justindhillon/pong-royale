@@ -22,12 +22,14 @@ function draw() {
 
     // Rotate Screen So Player Is On Bottom
     const alivePlayers = Object.entries(players)
-                               .filter((player) => !player[1].dead)
-                               .length;
+                               .filter(player => !player[1].dead);
+
+    const playerNumber = alivePlayers.findIndex(object => 
+                                      object[0] === socket.id);
 
     translate(width / 2, height / 2);
-    const angle = -360 / alivePlayers;
-    rotate(angle * (paddleNumber));
+    const angle = -360 / alivePlayers.length;
+    rotate(angle * playerNumber);
     translate(-width / 2, -height / 2);
 
     // Scale the screen to diffrent sizes
