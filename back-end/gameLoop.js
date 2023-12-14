@@ -2,6 +2,7 @@ const { calculateVertices } = require('./calculateVertex.js');
 const { paddle } = require('./paddle.js');
 const { collisionDetection } = require('./collisionDetection.js');
 const { getDistance } = require('./getDistance.js');
+const { moveBalls } = require('./moveBalls.js');
 
 function gameLoop(players, balls) {
     const alivePlayers = Object.values(players)
@@ -20,10 +21,7 @@ function gameLoop(players, balls) {
 
     i = 0;
     for (const player of alivePlayers) {
-        let nextI = parseInt(i) + 1;
-        if (Object.keys(vertices).length <= nextI) {
-            nextI = 0;
-        }
+        const nextI = (i + 1) % Object.keys(vertices).length;
 
         [player.x, player.y] = paddle({
             x: vertices[i].x,
@@ -65,7 +63,6 @@ function gameLoop(players, balls) {
                 balls[id2].y = 400;
                 balls[id2].direction = Math.random() * 360;
                 balls[id2].speed = 2;
-                balls[id2].lastPlayer = undefined;
 
                 // Removes player
                 player.dead = true;
@@ -83,24 +80,7 @@ function gameLoop(players, balls) {
         i++;
     }
 
-    for (const id in balls) {
-        const direction = balls[id].direction * (Math.PI / 180);
-        const moveX = Math.cos(direction) * balls[id].speed;
-        const moveY = Math.sin(direction) * balls[id].speed;
-
-        balls[id].x += moveX;
-        balls[id].y += moveY;
-
-        // If the ball is ever off screen for some reason
-        if (balls[id].x < -100 || 900 < balls[id].x || balls[id].y < -100 || 900 < balls[id].y) {
-            // Reset ball
-            balls[id].x = 400;
-            balls[id].y = 400;
-            balls[id].direction = Math.random() * 360;
-            balls[id].speed = 2;
-            balls[id].lastPlayer = undefined;
-        }
-    }
+    balls = moveBalls(balls);
 
     return [players, balls];
 }
