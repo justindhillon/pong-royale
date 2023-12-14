@@ -1,6 +1,3 @@
-// Code From socket.io Docs
-// https://socket.io/docs/v4/
-
 const express = require('express');
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');
@@ -15,9 +12,9 @@ const { calculateVertices } = require('./back-end/calculateVertex.js');
 const { paddle } = require('./back-end/paddle.js');
 const { collisionDetection } = require('./back-end/collisionDetection.js');
 const { getDistance } = require('./back-end/getDistance.js');
+const { connection } = require('./back-end/connection.js');
 
-let players = {}
-let playerNumber = 0;
+let players = {};
 
 let balls = {
   0: {
@@ -30,55 +27,13 @@ let balls = {
   },
 }
 
-app.use(express.static('dist'));
-
 io.on('connection', (socket) => {
-  players[socket.id] = {
-    x: 400,
-    y: 400,
-    rotation: 0,
-    number: playerNumber,
-    height: 0, 
-    width: 0,
-    pos: 1/2,
-    moveLeft: false,
-    moveRight: false,
-    dead: false,
-  };
-
-  playerNumber++;
-
-  io.emit('update', players, balls);
-
-  socket.on('disconnect', (reason) => {
-    delete players[socket.id];
-    io.emit('update', players, balls);
-  });
-
-  socket.on('keydown', (direction) => {
-    switch (direction) {
-      case 'left':
-        players[socket.id].moveLeft = true;
-        break
-      case 'right':
-        players[socket.id].moveRight = true;
-        break
-    }
-  })
-
-  socket.on('keyup', (direction) => {
-    switch (direction) {
-      case 'left':
-        players[socket.id].moveLeft = false;
-        break
-      case 'right':
-        players[socket.id].moveRight = false;
-        break
-    }
-  })
+  players = connection(socket, players);
 });
 
 setInterval(() => {
+  io.emit('update', players, balls);
+  
   let alivePlayerCount = 0;
   for (let id in players) {
     if (players.hasOwnProperty(id)) {
@@ -188,9 +143,9 @@ setInterval(() => {
       balls[id].lastPlayer = undefined;
     }
   }
-
-  io.emit('update', players, balls);
 }, 15)
+
+app.use(express.static('dist'));
 
 server.listen(port, () => {
   console.log('server running at http://localhost:' + port);
