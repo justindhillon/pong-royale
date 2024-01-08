@@ -9,9 +9,9 @@ socket.on('update', (server_players, server_balls) => {
 })
 
 socket.on('death', () => {
-    console.log("death");
+    death.play();
 })
 
 socket.on('hit', () => {
-    console.log("hit");
+    hit.play();
 })
