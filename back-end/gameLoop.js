@@ -4,8 +4,7 @@ const { collisionDetection } = require('./collisionDetection.js');
 const { getDistance } = require('./getDistance.js');
 const { resetBalls } = require('./resetBalls.js');
 
-
-function gameLoop(players, balls) {
+function gameLoop(players, balls, io) {
     let alivePlayerCount = 0;
     for (let id in players) {
         if (players.hasOwnProperty(id)) {
@@ -78,6 +77,9 @@ function gameLoop(players, balls) {
 
                 // Removes player
                 players[id].dead = true;
+                
+                // Tell front end that someone died
+                io.emit("death");
             }
 
             // Check for paddle colisions
@@ -90,6 +92,7 @@ function gameLoop(players, balls) {
 
                 balls[id2].direction = direction;
                 balls[id2].speed += 1;
+                io.emit("hit");
             }
         }
 
