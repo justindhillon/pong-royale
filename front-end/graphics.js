@@ -16,6 +16,16 @@ function draw() {
     // Clear Screen
     background(0);
 
+    // Shake Screen On Death
+    if (0 < shake) {
+        shake--;
+        if (shake % 2 === 0) {
+            translate(1, 1);
+        } else {
+            translate(-1, -1);
+        }
+    }
+
     // Check if there are enough players to start the game
     const playerCount = Object.keys(players).length;
     if (!enoughPlayers(playerCount)) return;
