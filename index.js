@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
   io.emit('update', players, balls);
-  [players, balls] = gameLoop(players, balls);
+  [players, balls] = gameLoop(players, balls, io);
 }, 15)
 
 app.use(express.static('dist'));
